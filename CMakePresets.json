@@ -1,0 +1,19 @@
+{
+	"version": 6,
+	"configurePresets": [
+		{
+			"name": "Debug",
+			"cmakeExecutable": "$penv{CMAKE_PATH}",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug"
+			}
+		},
+		{
+			"name": "Release",
+			"cmakeExecutable": "$penv{CMAKE_PATH}",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release"
+			}
+		}
+	]
+}

@@ -217,7 +217,27 @@ add_custom_command(
     COMMENT "Create build headers"
 )
 
+# Define a custom command to copy dependant DLLs on Windows
+if ( MSVC )
+    # DLLs to copy
+    set(DLL_LIST
+        ${BOOTSTRAP_BIN}/blosc.dll
+        ${BOOTSTRAP_BIN}/lz4.dll
+        ${BOOTSTRAP_BIN}/tbb12.dll
+        ${BOOTSTRAP_BIN}/zlib1.dll
+        ${BOOTSTRAP_BIN}/zstd.dll
+    )
 
+    foreach(DLL ${DLL_LIST})
+        add_custom_command(
+            TARGET ${LIB_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                ${DLL}
+                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+            COMMENT "Copying DLL ${DLL} to folder ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+        )
+    endforeach()
+endif()
 
  
 
